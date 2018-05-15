@@ -1,0 +1,6 @@
+framework module Pods_ShopKeeper {
+  umbrella header "Pods-ShopKeeper-umbrella.h"
+
+  export *
+  module * { export * }
+}
