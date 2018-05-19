@@ -25,6 +25,8 @@
 		E214C69A20AFFC0400CF564C /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214C69820AFFC0400CF564C /* ProductCollectionViewCell.swift */; };
 		E214C69B20AFFC0400CF564C /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E214C69920AFFC0400CF564C /* ProductCollectionViewCell.xib */; };
 		E214C69D20B0009B00CF564C /* UICollectionView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214C69C20B0009B00CF564C /* UICollectionView+Additions.swift */; };
+		E214C6A420B015D500CF564C /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214C6A220B015D500CF564C /* CategoryHeader.swift */; };
+		E214C6A520B015D500CF564C /* CategoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E214C6A320B015D500CF564C /* CategoryHeader.xib */; };
 		E254BCAA20AF15B10086B4BF /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E254BCA020AF15B10086B4BF /* Product+CoreDataClass.swift */; };
 		E254BCAB20AF15B10086B4BF /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E254BCA120AF15B10086B4BF /* Product+CoreDataProperties.swift */; };
 		E254BCAC20AF15B10086B4BF /* Variants+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E254BCA220AF15B10086B4BF /* Variants+CoreDataClass.swift */; };
@@ -96,6 +98,8 @@
 		E214C69820AFFC0400CF564C /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		E214C69920AFFC0400CF564C /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		E214C69C20B0009B00CF564C /* UICollectionView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Additions.swift"; sourceTree = "<group>"; };
+		E214C6A220B015D500CF564C /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
+		E214C6A320B015D500CF564C /* CategoryHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryHeader.xib; sourceTree = "<group>"; };
 		E254BCA020AF15B10086B4BF /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E254BCA120AF15B10086B4BF /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E254BCA220AF15B10086B4BF /* Variants+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variants+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -315,6 +319,8 @@
 				E214C69520AFFB7C00CF564C /* CategoryCollectionViewCell.xib */,
 				E214C69820AFFC0400CF564C /* ProductCollectionViewCell.swift */,
 				E214C69920AFFC0400CF564C /* ProductCollectionViewCell.xib */,
+				E214C6A220B015D500CF564C /* CategoryHeader.swift */,
+				E214C6A320B015D500CF564C /* CategoryHeader.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -455,6 +461,7 @@
 			files = (
 				E214C69720AFFB7C00CF564C /* CategoryCollectionViewCell.xib in Resources */,
 				E212F0F720AB36AB00B41CCE /* LaunchScreen.storyboard in Resources */,
+				E214C6A520B015D500CF564C /* CategoryHeader.xib in Resources */,
 				E254BCCB20AF1E900086B4BF /* Home.storyboard in Resources */,
 				E214C69B20AFFC0400CF564C /* ProductCollectionViewCell.xib in Resources */,
 				E212F0F420AB36AB00B41CCE /* Assets.xcassets in Resources */,
@@ -551,6 +558,7 @@
 				E212F0EA20AB36AB00B41CCE /* AppDelegate.swift in Sources */,
 				E254BCB520AF16100086B4BF /* CoreDataManager.swift in Sources */,
 				E254BCBB20AF16D60086B4BF /* EnvironmentManager.swift in Sources */,
+				E214C6A420B015D500CF564C /* CategoryHeader.swift in Sources */,
 				E254BCB720AF162C0086B4BF /* NSManagedObject+Additions.swift in Sources */,
 				E254BCC720AF1A740086B4BF /* DeeplinkNavigator.swift in Sources */,
 				E214C69D20B0009B00CF564C /* UICollectionView+Additions.swift in Sources */,

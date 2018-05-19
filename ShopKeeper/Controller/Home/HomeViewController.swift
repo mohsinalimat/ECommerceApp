@@ -14,8 +14,20 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
     var shouldReloadCollectionView: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: <#T##String#>)
-        // Do any additional setup after loading the view.
+        collectionView.register(ProductCollectionViewCell.self)
+        collectionView.register(CategoryHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
+        //collectionView.delegate = self
+        collectionView.dataSource = self
+        self.configureCollectionView()
+    }
+    
+    func fetchCategories(){
+        do{
+            try fetchedResultController.performFetch()
+        }catch{
+            let fetchError = error as NSError
+            print("Fetch error: \(fetchError)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,27 +35,34 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func clicked(_ sender: UIButton) {
-        let cat: [Category] = Category.findAll(MOC: CoreDataManager.coreDataManager.managedObjectContext) as! [Category]
-        print(cat)
+    func configureCollectionView(){
+        let screenSize = UIScreen.main.bounds
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        collectionViewLayout.itemSize = CGSize(width: (screenSize.width/2) - 10, height: (screenSize.width/2) - 10)
+        collectionViewLayout.minimumInteritemSpacing = 5
+        collectionViewLayout.minimumLineSpacing = 5
+        collectionViewLayout.headerReferenceSize = CGSize(width: self.collectionView.frame.width, height: 44)
+       
+        collectionView.setCollectionViewLayout(collectionViewLayout, animated: true)
     }
-    var _fetchedResultsController: NSFetchedResultsController<Category>? = nil
+   
+    var _fetchedResultsController: NSFetchedResultsController<Product>? = nil
     var blockOperations: [BlockOperation] = []
     
-    var fetchedResultController: NSFetchedResultsController<Category> {
+    var fetchedResultController: NSFetchedResultsController<Product> {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
         
-        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
+        let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
         let managedObjectContext = CoreDataManager.coreDataManager.managedObjectContext
         
-        fetchRequest.predicate = NSPredicate(format: "title != nil")
+        fetchRequest.predicate = NSPredicate(format: "name != nil")
         
         // sort by item text
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category.name", ascending: true),NSSortDescriptor(key: "id", ascending: true)]
+        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "category.name", cacheName: nil)
         
         resultsController.delegate = self;
         _fetchedResultsController = resultsController
@@ -57,7 +76,6 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
         return _fetchedResultsController!
     }
     
-    c
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
@@ -197,15 +215,34 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
 extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
+        let product: Product = fetchedResultController.object(at: indexPath) as! Product
+        
+        cell.productNameLabel.text = product.name
+        //print(category.id)
+    return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        <#code#>
+        return fetchedResultController.sections?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        let sectionInfo: NSFetchedResultsSectionInfo = fetchedResultController.sections![section]
+        
+        return sectionInfo.numberOfObjects
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionHeader{
+            let header: CategoryHeader = collectionView.dequeueReusableSupplementaryView(forSupplementaryViewOfKind: kind, forIndexPath: indexPath)
+             let product: Product = fetchedResultController.object(at: indexPath) as! Product
+            
+            header.headingLabel.text = product.category?.name ?? ""
+            return header
+        }
+        return UICollectionReusableView()
+        
     }
 }
 

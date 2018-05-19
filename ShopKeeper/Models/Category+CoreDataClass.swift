@@ -124,7 +124,7 @@ public class Category: NSManagedObject {
                             }
                         }
                        mutableProducts.add(product)
-                        
+                       product.setValue(self, forKey: "category")
                     }
                 }
             }
