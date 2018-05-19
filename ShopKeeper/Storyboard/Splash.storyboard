@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="u7e-9G-CYj">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="oiT-3N-piH">
+            <objects>
+                <viewController id="u7e-9G-CYj" customClass="SplashViewController" customModule="ShopKeeper" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="re4-gr-Vh1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To The App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-39-2gj">
+                                <rect key="frame" x="20" y="323" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nxY-FS-Ajl">
+                                <rect key="frame" x="169" y="579" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="64l-6G-eKb"/>
+                                    <constraint firstAttribute="height" constant="37" id="VGb-oE-Bbu"/>
+                                </constraints>
+                                <color key="color" red="1" green="0.69586487163887434" blue="0.53161698661382095" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nxY-FS-Ajl" firstAttribute="centerX" secondItem="re4-gr-Vh1" secondAttribute="centerX" id="4KR-RN-E6W"/>
+                            <constraint firstItem="Vhe-39-2gj" firstAttribute="centerY" secondItem="re4-gr-Vh1" secondAttribute="centerY" id="IG6-bg-lKe"/>
+                            <constraint firstItem="Vhe-39-2gj" firstAttribute="centerX" secondItem="re4-gr-Vh1" secondAttribute="centerX" id="bv3-Qh-1Er"/>
+                            <constraint firstItem="Fd6-9P-PCU" firstAttribute="bottom" secondItem="nxY-FS-Ajl" secondAttribute="bottom" constant="51" id="fh5-WO-CiZ"/>
+                            <constraint firstItem="Fd6-9P-PCU" firstAttribute="trailing" secondItem="Vhe-39-2gj" secondAttribute="trailing" constant="20" id="gaj-BF-CRr"/>
+                            <constraint firstItem="Vhe-39-2gj" firstAttribute="leading" secondItem="Fd6-9P-PCU" secondAttribute="leading" constant="20" id="xde-UB-0R1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Fd6-9P-PCU"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="nxY-FS-Ajl" id="wy5-xT-3D3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7bt-Rg-EGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="119" y="181"/>
+        </scene>
+    </scenes>
+</document>
