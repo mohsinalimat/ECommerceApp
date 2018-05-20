@@ -11,6 +11,7 @@ import CoreData
 
 class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     var shouldReloadCollectionView: Bool = false
     
     override func viewDidLoad() {
@@ -21,10 +22,16 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
         collectionView.dataSource = self
         self.configureCollectionView()
         self.title = "Categories"
+        let btn: UIBarButtonItem = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(HomeViewController.clicked))
+       // let controllerButton: UIBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "filter"), style: .bordered, target: self, action: #selector(HomeViewController.clicked))
         
-        let controllerButton: UIBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(HomeViewController.clicked))
-        self.navigationItem.rightBarButtonItem = controllerButton
+        self.navigationItem.rightBarButtonItem = btn
+        self.activity.startAnimating()
+        
     }
+    
+    
+    
     @objc func clicked(btn: UIButton){
         if !self.subCategorySelected {
             self.title = "Sub Categories"
@@ -117,10 +124,12 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
         
         do {
             try _fetchedResultsController!.performFetch()
+            self.activity.stopAnimating()
         } catch {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror)")
         }
+        
         return _fetchedResultsController!
     }
     

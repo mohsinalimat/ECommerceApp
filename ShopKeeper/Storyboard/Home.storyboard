@@ -38,12 +38,18 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fZx-IN-k7w">
+                                <rect key="frame" x="169" y="314.5" width="37" height="37"/>
+                                <color key="color" red="1" green="0.63209698603057785" blue="0.51488519945361388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="i6L-vK-ZHy" firstAttribute="leading" secondItem="ujq-Ss-V61" secondAttribute="leading" id="1E2-yQ-PoN"/>
+                            <constraint firstItem="fZx-IN-k7w" firstAttribute="centerY" secondItem="7yO-Ae-FKm" secondAttribute="centerY" id="CWr-aa-Nfp"/>
                             <constraint firstItem="ujq-Ss-V61" firstAttribute="bottom" secondItem="i6L-vK-ZHy" secondAttribute="bottom" id="MEp-Ob-j2P"/>
                             <constraint firstItem="i6L-vK-ZHy" firstAttribute="top" secondItem="ujq-Ss-V61" secondAttribute="top" id="Xna-4v-uyW"/>
+                            <constraint firstItem="fZx-IN-k7w" firstAttribute="centerX" secondItem="7yO-Ae-FKm" secondAttribute="centerX" id="ajb-qi-XIb"/>
                             <constraint firstItem="ujq-Ss-V61" firstAttribute="trailing" secondItem="i6L-vK-ZHy" secondAttribute="trailing" id="sbe-WS-iO0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ujq-Ss-V61"/>
@@ -52,6 +58,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activity" destination="fZx-IN-k7w" id="nUd-Cq-6b5"/>
                         <outlet property="collectionView" destination="i6L-vK-ZHy" id="sJH-aS-aeu"/>
                     </connections>
                 </viewController>

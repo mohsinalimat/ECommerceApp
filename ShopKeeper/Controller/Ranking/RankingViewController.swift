@@ -20,7 +20,7 @@ class RankingViewController: UIViewController {
         
         collectionView.dataSource = self
         self.configureCollectionView()
-        self.title = "Categories"
+        self.title = "Ranking Wise Products"
         getProductIDDictWise()
     }
     

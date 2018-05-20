@@ -21,6 +21,11 @@ extension NetworkOperation: CoreDataOperationData{
     var coreDataClassName: ClassString? {return self.className}
 }
 
+extension Notification.Name {
+    static let category = Notification.Name("category")
+    static let ranking = Notification.Name("ranking")
+}
+
 class CoreDataOperation: Operation {
     
     private let privateManageobjectContext: NSManagedObjectContext
@@ -43,6 +48,7 @@ class CoreDataOperation: Operation {
             if let categories = data["categories"] as? [[String: Any]]{
                 DBManager.parseData(className: .Category,dict: categories, MOC: self.privateManageobjectContext)
                 self.saveChanges()
+                
             }
             if let rankings = data["rankings"] as? [[String: Any]]{
                 DBManager.parseData(className: .Ranking,dict: rankings, MOC: self.privateManageobjectContext)
@@ -66,6 +72,7 @@ class CoreDataOperation: Operation {
             sl.saveChanges()
             
             sl.completion()
+            NotificationCenter.default.post(name: .category, object: nil)
         }
     }
     

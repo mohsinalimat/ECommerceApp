@@ -24,6 +24,7 @@ class RankingWiseProductCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.imageView.image = nil
+        self.countLabel.text = nil
     }
 
 }

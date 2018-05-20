@@ -17,8 +17,23 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.apiManager.setupAPIStart()
-        DeeplinkNavigator.shared.proceedToDeeplink(.HomeTab)
+        
         // Do any additional setup after loading the view.
+        if Product.count(MOC: CoreDataManager.coreDataManager.managedObjectContext) == 0{
+            NotificationCenter.default.addObserver(self, selector: #selector(SplashViewController.deepLink), name: .category, object: nil)
+        }else{
+            self.navigate()
+        }
+        
+    }
+    @objc func deepLink(noti: Notification){
+        self.navigate()
+    }
+    
+    func navigate(){
+        DispatchQueue.main.async {
+            DeeplinkNavigator.shared.proceedToDeeplink(.HomeTab)
+        }
     }
 
     override func didReceiveMemoryWarning() {
