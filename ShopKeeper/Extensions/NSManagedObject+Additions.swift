@@ -37,60 +37,7 @@ extension NSManagedObject {
         }
     }
     
-    class func getFetchController(_ group: String? = nil, predicate: Any? = nil, sortBy: String? = nil, asending: Bool = true, delegate: NSFetchedResultsControllerDelegate?, MOC: NSManagedObjectContext) ->  NSFetchedResultsController<NSFetchRequestResult> {
-        
-        let fetchRequest = self.getFetchRequest()
-        
-        if let fetchPredicate = predicate {
-            fetchRequest.predicate = self.predicate(formCondition: fetchPredicate)
-        }
-        var sortDescriptorArray = [NSSortDescriptor]()
-        if let sortDescription = sortBy {
-            let sortKeys = sortDescription.components(separatedBy: (","))
-            for sortKey in sortKeys {
-                let sortComponent = sortKey.components(separatedBy: ":")
-                if sortComponent.count > 1 {
-                    let sortDescriptor = NSSortDescriptor(key: sortComponent.first!, ascending: sortComponent.last!.toBool()!)//, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-                    sortDescriptorArray.append(sortDescriptor)
-                }else {
-                    let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: asending)//, selector: #selector(NSString.localizedCaseInsensitiveContains(_:)))
-                    sortDescriptorArray.append(sortDescriptor)
-                }
-            }
-        }
-        fetchRequest.sortDescriptors = sortDescriptorArray
-        fetchRequest.returnsObjectsAsFaults = true
-        let fetchController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MOC, sectionNameKeyPath: group, cacheName: nil)
-        fetchController.delegate = delegate
-        return fetchController as! NSFetchedResultsController<NSFetchRequestResult>
-    }
-    class func getFetchController(_ predicate: Any? = nil, sortBy: String? = nil, asending: Bool = true, delegate: NSFetchedResultsControllerDelegate?, MOC: NSManagedObjectContext) ->  NSFetchedResultsController<NSFetchRequestResult> {
-        
-        let fetchRequest = self.getFetchRequest()
-        
-        if let fetchPredicate = predicate {
-            fetchRequest.predicate = self.predicate(formCondition: fetchPredicate)
-        }
-        var sortDescriptorArray = [NSSortDescriptor]()
-        if let sortDescription = sortBy {
-            let sortKeys = sortDescription.components(separatedBy: (","))
-            for sortKey in sortKeys {
-                let sortComponent = sortKey.components(separatedBy: ":")
-                if sortComponent.count > 1 {
-                    let sortDescriptor = NSSortDescriptor(key: sortComponent.first!, ascending: sortComponent.last!.toBool()!)//, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
-                    sortDescriptorArray.append(sortDescriptor)
-                }else {
-                    let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: asending)//, selector: #selector(NSString.localizedCaseInsensitiveContains(_:)))
-                    sortDescriptorArray.append(sortDescriptor)
-                }
-            }
-        }
-        fetchRequest.sortDescriptors = sortDescriptorArray
-        fetchRequest.returnsObjectsAsFaults = true
-        let fetchController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MOC, sectionNameKeyPath: nil, cacheName: nil)
-        fetchController.delegate = delegate
-        return fetchController as! NSFetchedResultsController<NSFetchRequestResult>
-    }
+    
     
     class func delete(condition: Any? = nil, MOC: NSManagedObjectContext) {
         let fetchRequest = self.getFetchRequest()
@@ -172,8 +119,8 @@ extension NSManagedObject {
         return NSEntityDescription.insertNewObject(forEntityName: self.entityName, into: MOC) as! T
     }
     
-    class func findAll<T: NSManagedObject>(condition: Any? = nil,fetchLimit: Int? = nil, sortBy: String = "", MOC: NSManagedObjectContext) ->  [T]? {
-        let fetchRequest = self.fetchRequestWithKey(key: sortBy)
+    class func findAll<T: NSManagedObject>(condition: Any? = nil,fetchLimit: Int? = nil, sortBy: String = "", ascending: Bool = true, MOC: NSManagedObjectContext) ->  [T]? {
+        let fetchRequest = self.fetchRequestWithKey(key: sortBy, ascending: ascending)
         if let cntn = condition {
             fetchRequest.predicate = self.predicate(formCondition: cntn)
         }

@@ -6,19 +6,37 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="category" inverseEntity="Product" syncable="YES"/>
     </entity>
+    <entity name="MostOrdered" representedClassName="MostOrdered" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ordercount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="ranking" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Rankings" inverseName="mostorderdrel" inverseEntity="Rankings" syncable="YES"/>
+    </entity>
+    <entity name="MostShared" representedClassName="MostShared" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sharecount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="ranking" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Rankings" inverseName="mostsharedrel" inverseEntity="Rankings" syncable="YES"/>
+    </entity>
+    <entity name="MostViewed" representedClassName="MostViewed" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="viewcount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="ranking" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Rankings" inverseName="mostviewedrel" inverseEntity="Rankings" syncable="YES"/>
+    </entity>
     <entity name="Product" representedClassName="Product" syncable="YES">
         <attribute name="date_added" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orderedcount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sharecount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="viewcount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="products" inverseEntity="Category" syncable="YES"/>
         <relationship name="tax" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tax" inverseName="product" inverseEntity="Tax" syncable="YES"/>
         <relationship name="variants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Variants" inverseName="product" inverseEntity="Variants" syncable="YES"/>
     </entity>
     <entity name="Rankings" representedClassName="Rankings" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="[Any]" syncable="YES"/>
-        <attribute name="ordercount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="sharecount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="viewcount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="mostorderdrel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MostOrdered" inverseName="ranking" inverseEntity="MostOrdered" syncable="YES"/>
+        <relationship name="mostsharedrel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MostShared" inverseName="ranking" inverseEntity="MostShared" syncable="YES"/>
+        <relationship name="mostviewedrel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MostViewed" inverseName="ranking" inverseEntity="MostViewed" syncable="YES"/>
     </entity>
     <entity name="Tax" representedClassName="Tax" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,9 +52,12 @@
     </entity>
     <elements>
         <element name="Category" positionX="-144" positionY="-108" width="128" height="103"/>
-        <element name="Product" positionX="133" positionY="-54" width="128" height="133"/>
-        <element name="Rankings" positionX="-45" positionY="204" width="128" height="103"/>
+        <element name="MostViewed" positionX="-540" positionY="-81" width="128" height="88"/>
+        <element name="Product" positionX="133" positionY="-54" width="128" height="178"/>
         <element name="Tax" positionX="-126" positionY="99" width="128" height="88"/>
         <element name="Variants" positionX="142" positionY="210" width="128" height="118"/>
+        <element name="MostShared" positionX="-551" positionY="243" width="128" height="88"/>
+        <element name="MostOrdered" positionX="-666" positionY="72" width="128" height="88"/>
+        <element name="Rankings" positionX="-380" positionY="-27" width="128" height="103"/>
     </elements>
 </model>

@@ -12,13 +12,36 @@ import CoreData
 class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     var shouldReloadCollectionView: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(ProductCollectionViewCell.self)
         collectionView.register(CategoryHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
-        //collectionView.delegate = self
+        
         collectionView.dataSource = self
         self.configureCollectionView()
+        self.title = "Categories"
+        
+        let controllerButton: UIBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(HomeViewController.clicked))
+        self.navigationItem.rightBarButtonItem = controllerButton
+    }
+    @objc func clicked(btn: UIButton){
+        if !self.subCategorySelected {
+            self.title = "Sub Categories"
+            NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "categorized")
+            
+        }else{
+            self.title = "Categories"
+            NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "subCategorized")
+        }
+        self.subCategorySelected = !self.subCategorySelected
+        self._fetchedResultsController = nil
+        self.collectionView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
     }
     
     func fetchCategories(){
@@ -49,6 +72,7 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
    
     var _fetchedResultsController: NSFetchedResultsController<Product>? = nil
     var blockOperations: [BlockOperation] = []
+    var subCategorySelected: Bool = false
     
     var fetchedResultController: NSFetchedResultsController<Product> {
         if _fetchedResultsController != nil {
@@ -58,11 +82,35 @@ class HomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
         let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
         let managedObjectContext = CoreDataManager.coreDataManager.managedObjectContext
         
-        fetchRequest.predicate = NSPredicate(format: "name != nil")
+        //fetchRequest.predicate = NSPredicate(format: "name != nil")
         
-        // sort by item text
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category.name", ascending: true),NSSortDescriptor(key: "id", ascending: true)]
-        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "category.name", cacheName: nil)
+        var predicateArray: [NSPredicate] = [NSPredicate]()
+        predicateArray.append(NSPredicate(format: "name != nil"))
+        
+    
+        if !self.subCategorySelected{
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category.name", ascending: true),NSSortDescriptor(key: "id", ascending: true)]
+        }else{
+            if var cat = Category.findAll(condition: NSPredicate(format: "%K > 0",#keyPath(Category.child_categories)), fetchLimit: nil, sortBy: "", ascending: false, MOC: managedObjectContext) as? [Category]{
+                var ids: [Int] = []
+                cat = cat.filter{
+                    if let chld = $0.child_categories as? [Int]{
+                        ids += chld
+                        return chld.count > 0
+                    }
+                    return false
+                }
+                print(cat)
+                let conciseUniqueValues: [Int] = ids.reduce([], { $0.contains($1) ? $0 : $0 + [$1] })
+                print(conciseUniqueValues)
+                predicateArray.append(NSPredicate(format: "ANY id IN %@", conciseUniqueValues))
+            }
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category.name", ascending: true),NSSortDescriptor(key: "id", ascending: true)]
+            
+        }
+        let coumpoundPredicate: NSCompoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateArray)
+        fetchRequest.predicate = coumpoundPredicate
+        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "category.name", cacheName:     self.subCategorySelected ? "subCategorized" : "categorized")
         
         resultsController.delegate = self;
         _fetchedResultsController = resultsController
@@ -244,5 +292,7 @@ extension HomeViewController: UICollectionViewDataSource{
         return UICollectionReusableView()
         
     }
+  
 }
+
 

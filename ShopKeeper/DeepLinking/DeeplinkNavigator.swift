@@ -27,14 +27,16 @@ class DeeplinkNavigator {
     
     func proceedToDeeplink(_ type: DeeplinkPath) {
         switch type {
-        case .Home:
-            setRootView(toStoryBoard: StoryBoard.Home, initialViewControllerIdentifier: "HomeViewController")
+        case .HomeTab:
+            setRootView(toStoryBoard: StoryBoard.HomeTab, initialViewControllerIdentifier: "HomeTab")
+        default: return
         }
     }
     
     private func setRootView(toStoryBoard storyBoardName: StoryBoard, initialViewControllerIdentifier identifier: String) {
         let viewController = self.getViewController(toStoryBoard: storyBoardName, initialViewControllerIdentifier: identifier)
-        AppDelegate.shared.window?.rootViewController = viewController
+        let navigation = viewController
+        AppDelegate.shared.window?.rootViewController = navigation
     }
     
     private func getViewController(toStoryBoard storyBoardName: StoryBoard, initialViewControllerIdentifier identifier: String) -> UIViewController {
@@ -69,6 +71,7 @@ class DeeplinkNavigator {
 
 enum StoryBoard: String {
     case Home       = "Home"
+    case HomeTab       = "HomeTab"
     
 }
 
@@ -79,6 +82,7 @@ enum DeeplinkPath {
         case present
     }
     case Home
+    case HomeTab
 }
 
 

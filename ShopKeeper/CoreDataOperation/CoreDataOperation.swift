@@ -40,7 +40,15 @@ class CoreDataOperation: Operation {
             $0 is CoreDataOperationData
             }.first as? CoreDataOperationData
         if let data = dataProvider?.result, let className = dataProvider?.coreDataClassName{
-            DBManager.parseData(className: className,dict: data, MOC: self.privateManageobjectContext)
+            if let categories = data["categories"] as? [[String: Any]]{
+                DBManager.parseData(className: .Category,dict: categories, MOC: self.privateManageobjectContext)
+                self.saveChanges()
+            }
+            if let rankings = data["rankings"] as? [[String: Any]]{
+                DBManager.parseData(className: .Ranking,dict: rankings, MOC: self.privateManageobjectContext)
+            }
+            
+            
         }
         completion()
     }

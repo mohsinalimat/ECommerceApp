@@ -2,7 +2,7 @@
 //  Product+CoreDataProperties.swift
 //  ShopKeeper
 //
-//  Created by Vivek Gupta on 18/05/18.
+//  Created by Vivek Gupta on 20/05/18.
 //  Copyright © 2018 Vivek Gupta. All rights reserved.
 //
 //
@@ -20,6 +20,9 @@ extension Product {
     @NSManaged public var date_added: String?
     @NSManaged public var id: Int32
     @NSManaged public var name: String?
+    @NSManaged public var viewcount: Int32
+    @NSManaged public var sharecount: Int32
+    @NSManaged public var orderedcount: Int32
     @NSManaged public var category: Category?
     @NSManaged public var tax: Tax?
     @NSManaged public var variants: NSSet?

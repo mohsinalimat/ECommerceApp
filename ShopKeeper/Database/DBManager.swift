@@ -16,11 +16,13 @@ enum ClassString: String {
 }
 
 class DBManager{
-    class func parseData(className: ClassString, dict: [String: Any], MOC: NSManagedObjectContext){
+    class func parseData(className: ClassString, dict: [[String: Any]], MOC: NSManagedObjectContext){
         switch className {
         case .Category:
             Category.parseData(dict: dict, MOC: MOC)
-            
+        case .Ranking:
+            return
+            Rankings.parseData(dict: dict, MOC: MOC)
         default:
             return
         }

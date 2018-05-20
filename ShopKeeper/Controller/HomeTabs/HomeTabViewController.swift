@@ -1,23 +1,18 @@
 //
-//  SplashViewController.swift
+//  HomeTabViewController.swift
 //  ShopKeeper
 //
-//  Created by Vivek Gupta on 17/05/18.
+//  Created by Vivek Gupta on 19/05/18.
 //  Copyright © 2018 Vivek Gupta. All rights reserved.
 //
 
 import UIKit
 
-class SplashViewController: UIViewController {
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    let manageobjectContext = CoreDataManager.coreDataManager.managedObjectContext
-    let apiManager          = APIManager.apiManager
-    
+class HomeTabViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.apiManager.setupAPIStart()
-        DeeplinkNavigator.shared.proceedToDeeplink(.HomeTab)
+
         // Do any additional setup after loading the view.
     }
 
